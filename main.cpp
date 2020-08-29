@@ -1,4 +1,26 @@
 #include "main.h"
+
+int main(int argc,char* argv[]){
+    cmdline::parser p;
+    p.add<std::string>("musicxml",'i',"musicxml file",true);
+    p.add<std::string>("neutrino",'n',"NEUTRINO Dir",true);
+    p.add<std::string>("out",'o',"OUTPUT Dir",true);
+    p.add<int>("threads",'t',"Threads",false,8);
+    p.add("help", 'h', "print help");
+
+    if (!p.parse(argc, argv)||p.exist("help")){
+        std::cout<<p.error_full()<<p.usage();
+        return 0;
+    }
+    NEUTRINO_SETTING nskun;
+    nskun.use_nsf=true;
+    nskun.MUSICXML_PATH=p.get<std::string>("musicxml");
+    nskun.NEUTRINO_DIR=p.get<std::string>("neutrino");
+    nskun.OUT_PATH=p.get<std::string>("out");
+    nskun.threads=p.get<int>("threads");
+    stdout_NEUTRINO_SETTING(nskun);
+    return 0;
+}
 void stdout_args(int argc,char* argv[]){
     int i;
     for(i=0;i<argc;i++){
@@ -6,28 +28,10 @@ void stdout_args(int argc,char* argv[]){
     }
 
 }
-int main(int argc,char* argv[]){
-    NEUTRINO_SETTING nskun;
-    int c;
-    const char* optstring = "i:d:zo:n";
-    const struct option longopts[] = 
-    {
-        {"musicxml",required_argument,0,'i'},
-        {"neutrino",required_argument,0,'d'},
-        {"no_gpu",optional_argument,0,'z'},
-        {"output_dir",required_argument,0,'o'},
-        {"use_nsf",optional_argument,0,'n'},
-        {0,0,0,0}
-    };
-    int lngindex=0;
-    opterr=0;
-    while ((c = getopt_long(argc,argv,optstring,longopts,&lngindex)) != -1){
-        //stdout_args(argc,argv);
-        if(c == 'i'){
-            nskun.MUSICXML_PATH=optarg;
-        }
-        break;
-    }
-    std::cout << nskun.MUSICXML_PATH << std::endl;
-    return 0;
+void stdout_NEUTRINO_SETTING(NEUTRINO_SETTING ns){
+    std::cout << "musicxml=" << ns.MUSICXML_PATH << std::endl;
+    std::cout << "neutrino_path=" << ns.NEUTRINO_DIR << std::endl;
+    std::cout << "use nsf=" << ns.use_nsf << std::endl;
+    std::cout << "output dir=" << ns.OUT_PATH << std::endl;
+    std::cout << "threads=" << ns.threads << std::endl;
 }

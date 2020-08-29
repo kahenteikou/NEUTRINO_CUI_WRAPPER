@@ -7,7 +7,7 @@ void stdout_args(int argc,char* argv[]){
 
 }
 int main(int argc,char* argv[]){
-    bool no_gpu=false;
+    NEUTRINO_SETTING nskun;
     int c;
     const char* optstring = "i:d:zo:n";
     const struct option longopts[] = 
@@ -22,8 +22,12 @@ int main(int argc,char* argv[]){
     int lngindex=0;
     opterr=0;
     while ((c = getopt_long(argc,argv,optstring,longopts,&lngindex)) != -1){
-        stdout_args(argc,argv);
+        //stdout_args(argc,argv);
+        if(c == 'i'){
+            nskun.MUSICXML_PATH=optarg;
+        }
         break;
     }
+    std::cout << nskun.MUSICXML_PATH << std::endl;
     return 0;
 }

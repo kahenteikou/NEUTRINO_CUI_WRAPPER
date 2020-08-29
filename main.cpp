@@ -19,6 +19,7 @@ int main(int argc,char* argv[]){
     nskun.OUT_PATH=p.get<std::string>("out");
     nskun.threads=p.get<int>("threads");
     stdout_NEUTRINO_SETTING(nskun);
+
     return 0;
 }
 void stdout_args(int argc,char* argv[]){
@@ -29,9 +30,9 @@ void stdout_args(int argc,char* argv[]){
 
 }
 void stdout_NEUTRINO_SETTING(NEUTRINO_SETTING ns){
-    std::cout << "musicxml=" << ns.MUSICXML_PATH << std::endl;
-    std::cout << "neutrino_path=" << ns.NEUTRINO_DIR << std::endl;
-    std::cout << "use nsf=" << ns.use_nsf << std::endl;
-    std::cout << "output dir=" << ns.OUT_PATH << std::endl;
-    std::cout << "threads=" << ns.threads << std::endl;
+    std::cout << "MusicXML   : " << ns.MUSICXML_PATH << std::endl;
+    std::cout << "NEUTRINO   : " << ns.NEUTRINO_DIR << std::endl;
+    std::cout << "USE NSF    : " << ns.use_nsf << std::endl;
+    std::cout << "OUTPUT DIR : " << ns.OUT_PATH << std::endl;
+    std::cout << "Threads    : " << ns.threads << std::endl;
 }

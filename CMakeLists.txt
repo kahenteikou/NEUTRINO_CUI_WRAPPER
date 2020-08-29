@@ -1,3 +1,6 @@
 cmake_minimum_required(VERSION 2.8)
 project(NEUTRINO_CUI_WRAPPER CXX)
+
+set(CMAKE_C_COMPILER "/usr/bin/clang" CACHE string "clang compiler" FORCE)
+set(CMAKE_CXX_COMPILER "/usr/bin/clang++" CACHE string "clang++ compiler" FORCE)
 add_executable(neutrino_cui main.cpp)
